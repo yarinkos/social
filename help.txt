@@ -1,0 +1,23 @@
+
+
+based on:
+http://ingini.org/2015/03/26/authentication-authorization-schema-design-with-mongodb/
+
+file uploads :
+http://stackoverflow.com/questions/21123437/how-do-i-use-spring-boot-to-serve-static-content-located-in-dropbox-folder
+or from tomcat:
+<Context docBase="/path/to/files" path="/files" />
+This way they'll be accessible through http://example.com/files/....
+
+serve static file content :
+http://stackoverflow.com/questions/21123437/how-do-i-use-spring-boot-to-serve-static-content-located-in-dropbox-folder
+http://stackoverflow.com/questions/25061237/spring-4-addresourcehandlers-not-resolving-the-static-resources
+ @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/files/**").addResourceLocations("file:///C:\\temp/");
+    }
+usage : http://localhost:8080/files/002.jpg
+
+
+vide resolver :
+addViewControllers -works well without dispatcher since springboot 1.3.3
