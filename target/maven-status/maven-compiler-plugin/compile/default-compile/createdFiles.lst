@@ -1,9 +1,0 @@
-social\kossover\com\model\User.class
-social\kossover\com\repository\UserRepository.class
-social\kossover\com\config\MvcConfig.class
-social\kossover\com\config\WebSecurityConfig.class
-social\kossover\com\security\MongoDBUserDetailsService.class
-social\kossover\com\Application.class
-social\kossover\com\security\CustomAuthenticationProvider.class
-social\kossover\com\controller\ResourceController.class
-social\kossover\com\config\MongoConfig.class
