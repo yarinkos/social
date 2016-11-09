@@ -19,42 +19,62 @@
 package social.kossover.com.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 
+@Document
 public class User {
 
     @Id
     private String id;
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public static final String EMAIL = "email";
     public static final String ROLES = "roles";
-
+    @Getter
+    @Setter
+    @NotEmpty @NotNull
+    @Size(min=2, max=15)
+    @Indexed(unique = true)
     @JsonProperty(USERNAME)
     private String username;
 
+    @Getter
+    @Setter
+    @NotEmpty @NotNull
+    @Size(min=6, max=12)
     @JsonProperty(PASSWORD)
     private String password;
 
+    @Getter
+    @Setter
+    @NotEmpty @NotNull
+    @Email
+    @Indexed(unique = true)
+    @JsonProperty(EMAIL)
+    private String email;
+
+    @Getter
+    @Setter
     @JsonProperty(ROLES)
     /*@JsonSerialize(contentUsing = GrantedAuthoritySerializer.class)
     @JsonDeserialize(contentUsing = GrantedAuthorityDeserializer.class)*/
-    private List<GrantedAuthority> roles;
+    private List<GrantedAuthority> roles ;
 
 
-    public String getUsername() {
-        return username;
-    }
 
-    public String getPassword() {
-        return password;
-    }
 
     public List<GrantedAuthority> getRoles() {
         return roles;
@@ -65,6 +85,7 @@ public class User {
         return new ToStringBuilder(this)
                 .append("username", username)
                 .append("password", password)
+                .append("email", email)
                 .append("roles", roles)
                 .toString();
     }

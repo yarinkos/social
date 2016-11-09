@@ -16,7 +16,7 @@
  *
  */
 
-package social.kossover.com.security;
+package social.kossover.com.security.providers;
 
 
 

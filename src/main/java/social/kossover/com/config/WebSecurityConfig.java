@@ -3,12 +3,11 @@ package social.kossover.com.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import social.kossover.com.security.CustomAuthenticationProvider;
-import social.kossover.com.security.MongoDBUserDetailsService;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import social.kossover.com.security.providers.CustomAuthenticationProvider;
+import social.kossover.com.security.providers.MongoDBUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -21,6 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomAuthenticationProvider customAuthenticationProvider;
+
 
 
     @Override
@@ -39,8 +39,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/").permitAll()
+                //.anyRequest().authenticated()
+                .and().csrf().disable();
+
+        http
+                .authorizeRequests()
+                .antMatchers("/", "/home","/sighup","/greeting6","/saveCountry","/saveCountry1").permitAll()
+                //.anyRequest().authenticated()
                 .and()
                 .formLogin()//.defaultSuccessUrl("/resource")
 //                .loginPage("/login")
@@ -60,4 +66,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .inMemoryAuthentication()
                 .withUser("user").password("password").roles("USER");*/
     }
+
+    /*@Autowired
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authProvider());
+    }*/
+
+    /*@Bean
+    public DaoAuthenticationProvider authProvider() {
+        final DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(mongoDBUserDetailsService);
+        //authProvider.setPasswordEncoder(encoder());
+        return authProvider;
+    }*/
 }

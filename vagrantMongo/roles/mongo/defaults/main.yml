@@ -1,0 +1,14 @@
+---
+
+mongodb_packages:
+  - mongodb-org
+mongodb_packages_dependencies:
+  - libselinux-python
+
+mongo_user: mongod
+mongo_group: mongod
+mongo_home: /home/mongod
+mongo_log: "{{ mongo_home }}/mongod.log"
+mongo_data: "{{ mongo_home }}/data"
+mongo_runtime_variable_data: "/var/run/mongodb"
+mongo_pid: "/var/run/mongodb/mongod.pid"

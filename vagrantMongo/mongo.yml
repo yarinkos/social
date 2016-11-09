@@ -1,0 +1,4 @@
+---
+- hosts: mongos
+  roles:
+    - { role: mongo , dir: roles , become: yes }

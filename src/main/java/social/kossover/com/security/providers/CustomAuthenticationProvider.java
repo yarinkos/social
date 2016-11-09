@@ -1,4 +1,4 @@
-package social.kossover.com.security;
+package social.kossover.com.security.providers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;

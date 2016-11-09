@@ -1,0 +1,14 @@
+[Unit]
+Description=MongoDB - a high-performance, schema-free document-oriented database
+After=network.target
+
+[Service]
+Type=forking
+User={{ mongo_user }}
+Group={{ mongo_group }}
+PIDFile={{ mongo_pid }}
+ExecStart=/usr/bin/mongod --config /etc/mongod.conf
+# --quiet
+
+[Install]
+WantedBy=multi-user.target

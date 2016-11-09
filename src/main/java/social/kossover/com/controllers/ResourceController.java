@@ -16,16 +16,16 @@
  *
  */
 
-package social.kossover.com.controller;
+package social.kossover.com.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import social.kossover.com.temp.Greeting;
 import social.kossover.com.model.User;
 import social.kossover.com.repository.UserRepository;
 
@@ -50,15 +50,6 @@ public class ResourceController {
     }
 
 
-    /*@RequestMapping("/login")
-    public void greeting1(@RequestParam(value="name", defaultValue="World") String name) {
-        System.out.print(true);
-    }
-*/
-    @RequestMapping("/resource/do")
-    public void greeting2(@RequestParam(value = "name", defaultValue = "World") String name) {
-        System.out.print(true);
-    }
 
 
 }

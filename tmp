@@ -1,0 +1,37 @@
+<body>
+<form th:href="@{/sighup}" method="post">
+
+    Name:<input type="text" name="username"/><br/><br/>
+    Password:<input type="password" name="password"/><br/><br/>
+    Email Id:<input type="text" name="email"/><br/><br/>
+    Country:
+    <select name="userCountry">
+        <option>India</option>
+        <option>Pakistan</option>
+        <option>other</option>
+    </select>
+
+    <br/><br/>
+    <input type="submit" value="register"/>
+
+
+
+</form>
+</body>
+
+/*  Uri targetUrl= UriComponentsBuilder.fromUriString("http://localhost:8080")
+                .path("/android/played.json")
+                .queryParam("name", "name")
+                .build()
+                .toUri();*/
+
+                //login
+                httpPost.setHeader("Content-type", "application/json");
+                        StringEntity stringEntity;
+                        try {
+                            String params ="{\"username\": \"user7\" \"password\": \"password\"}";
+                            stringEntity =new StringEntity(params);
+
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }

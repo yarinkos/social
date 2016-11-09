@@ -1,0 +1,32 @@
+---
+- selinux: state=disabled ## WARNING: only for developers
+
+
+
+- name: RedHat | Install dependencies packages
+  yum: name={{ item }} state=installed
+  with_items: mongodb_packages_dependencies
+
+- name: RedHat | Add source sources
+  template: src=mongodb.repo.j2 dest=/etc/yum.repos.d/mongodb.repo
+
+- name: RedHat | Install Packages
+  yum: name={{ item }} state=installed
+  with_items: mongodb_packages
+
+- group: name={{ mongo_group }} state=present
+- user: name={{ mongo_user }} group={{ mongo_group }} state=present home={{ mongo_home }}
+- name: Create mongo data folder
+  file: path={{ mongo_data }} state=directory mode=0755 owner={{ mongo_user }} group={{ mongo_group }}
+- name: Create MongoDB runtime PID directory {{ mongo_runtime_variable_data }}
+  file: path={{ mongo_runtime_variable_data }} state=directory mode=0755 owner={{ mongo_user }} group={{ mongo_group }}
+- name: Write /etc/mongod.conf
+  template: src=mongod.conf.j2 dest=/etc/mongod.conf
+
+- name: Create systemd service unit
+  template: src=systemd.service.j2 dest=/etc/systemd/system/mongod.service
+- name: Reload systemd daemon configuration
+  shell: systemctl daemon-reload
+
+- name: Start mongod service
+  service: name=mongod state=restarted
